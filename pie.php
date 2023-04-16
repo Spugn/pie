@@ -64,7 +64,7 @@
     }
     
     function unpackAsset($hash, $fileInfo) {
-        require_once './unity-texture-toolkit/UnityAsset.php';
+        require_once './pie/unity-texture-toolkit/UnityAsset.php';
         $bundleFileStream = new FileStream(ASSETS."$hash");
         $assetsList = extractBundle($bundleFileStream);
         unset($bundleFileStream);
