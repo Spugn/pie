@@ -1,8 +1,18 @@
 <?php
     /**
-     * this script will look for a file named `image_queue.json` in the current working directory
+     * this script will look for a file named `pie.json` in the current working directory
+     * this repository must be uploaded to a `pie` directory, for example:
+     * REPOSITORY_ROOT/
+     *   pie/
+     *     unity-texture-toolkit/
+     *       UnityAsset.php
+     *       UnityBundle.php
+     *     pie.php
+     *   README.md
+     *   .gitignore
+     *   <... and other project files>
      * 
-     * image_queue.json must be formatted as so:
+     * pie.json must be formatted as so:
      * {
      *   "<hash>": {
      *     "png": "<path/to/png.png>",
@@ -104,26 +114,10 @@
                     unlink("./"."$item->name".".webp"); // delete original copy
                     unset($image);
             
-                    if (strpos($item->name, "icon_unit_") !== false) {
-                        // if icon unit found, leave early because memory leaks
-                        $stillFound = true;
-                        unset($item);
-                        break;
-                    }
-                    if (strpos($item->name, "icon_equipment_") !== false) {
-                        // if icon equipment found, leave early because memory leaks
-                        $stillFound = true;
-                        unset($item);
-                        break;
-                    }
-                    if (strpos($item->name, "still_unit_") !== false) {
-                        // if still unit found, leave early because memory leaks
-                        $stillFound = true;
-                        unset($item);
-                        break;
-                    }
-
+                    // if images were generated, just leave early. fearing memory leaks
+                    $stillFound = true;
                     unset($item);
+                    break;
                 }
             }
             $asset->__desctruct();
