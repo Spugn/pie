@@ -104,6 +104,12 @@
                     unlink("./"."$item->name".".webp"); // delete original copy
                     unset($image);
             
+                    if (strpos($item->name, "icon_unit_") !== false) {
+                        // if icon unit found, leave early because memory leaks
+                        $stillFound = true;
+                        unset($item);
+                        break;
+                    }
                     if (strpos($item->name, "icon_equipment_") !== false) {
                         // if icon equipment found, leave early because memory leaks
                         $stillFound = true;
